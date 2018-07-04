@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.candymachine.model.EmployeeModel;
 import br.com.candymachine.model.ResponseModel;
-import br.com.candymachine.repository.EmployeeRepository;
+import br.com.candymachine.model.SalesModel;
+import br.com.candymachine.repository.SalesRepository;
  
 @Service
 @RestController
 @RequestMapping("/service")
-public class EmployeeService {
+public class SalesService {
  
 	@Autowired
-	private EmployeeRepository employeeRepository; 
+	private SalesRepository salesRepository; 
  
 	/**
 	 * SALVAR UM NOVO REGISTRO
-	 * @param employee
+	 * @param sale
 	 * @return
 	 */
-	@RequestMapping(value="/employee", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel insert(@RequestBody EmployeeModel employee){
+	@RequestMapping(value="/sales", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseModel insert(@RequestBody SalesModel sale){
  
  
 		try {
  
-			this.employeeRepository.save(employee);
+			this.salesRepository.save(sale);
  
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
@@ -47,15 +47,15 @@ public class EmployeeService {
  
 	/**
 	 * ATUALIZAR O REGISTRO DE UMA PESSOA
-	 * @param employee
+	 * @param sale
 	 * @return
 	 */
-	@RequestMapping(value="/employee", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel update(@RequestBody EmployeeModel employee){
+	@RequestMapping(value="/sales", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseModel update(@RequestBody SalesModel sale){
  
 		try {
  
-			this.employeeRepository.save(employee);		
+			this.salesRepository.save(sale);		
  
 			return new ResponseModel(1,"Registro atualizado com sucesso!");
  
@@ -69,35 +69,36 @@ public class EmployeeService {
 	 * CONSULTAR TODAS AS PESSOAS
 	 * @return
 	 */
-	@RequestMapping(value="/employee", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody List<EmployeeModel> select(){
-		return this.employeeRepository.findAll();
+	@RequestMapping(value="/sales", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody List<SalesModel> select(){
+ 
+		return this.salesRepository.findAll();
 	}
  
 	/**
 	 * BUSCAR UMA PESSOA PELO CÓDIGO
-	 * @param codigo
+	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/employee/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody EmployeeModel find(@PathVariable("id") Integer id){
+	@RequestMapping(value="/sales/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody SalesModel find(@PathVariable("id") Integer id){
  
-		return this.employeeRepository.findById(id);
+		return this.salesRepository.findById(id);
 	}
  
 	/***
 	 * EXCLUIR UM REGISTRO PELO CÓDIGO
-	 * @param codigo
+	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/employee/{id}", method = RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/sales/{id}", method = RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseModel delete(@PathVariable("id") Integer id){
  
-		EmployeeModel employeeModel = employeeRepository.findById(id);
+		SalesModel salesModel = salesRepository.findById(id);
  
 		try {
  
-			employeeRepository.delete(employeeModel);
+			salesRepository.delete(salesModel);
  
 			return new ResponseModel(1, "Registro excluido com sucesso!");
  

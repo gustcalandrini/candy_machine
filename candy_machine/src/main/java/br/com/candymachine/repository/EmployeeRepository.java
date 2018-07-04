@@ -7,9 +7,9 @@ import br.com.candymachine.model.EmployeeModel;
 
 public interface EmployeeRepository extends Repository<EmployeeModel, Integer> {
  
-	void save(EmployeeModel pessoa);
+	void save(EmployeeModel employee);
  
-	void delete(EmployeeModel pessoa);
+	void delete(EmployeeModel employee);
  
 	List<EmployeeModel> findAll();
  

@@ -20,35 +20,46 @@ public class SalesModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_sales")
 	private Integer id;
+	
+	@Column(name="id_costumer")
+	private int idCostumer;
+	
+	@Column(name="id_employee")
+	private int idEmployee;
 
 	@Column(name = "id_product")
 	private int idProduct;
 
 	@Column(name = "quantity")
-	private String quantity;
+	private int quantity;
 
 	@Column(name = "value")
-	private float value;
+	private double value;
 
 	@Column(name = "`change`")
-	private float change;
+	private double change;
 
 	@Column(name = "final_value")
-	private float finalValue;
+	private double finalValue;
 
 	@Column(name = "date")
 	private Date date;
 
 	public SalesModel() {
-	}
+	}	
 
-	public SalesModel(Integer id, String quantity, float value, float change, float final_value) {
+	public SalesModel(Integer id, int idCostumer, int idEmployee, int idProduct, int quantity, double value,
+			double change, double finalValue, Date date) {
 		super();
 		this.id = id;
+		this.idCostumer = idCostumer;
+		this.idEmployee = idEmployee;
+		this.idProduct = idProduct;
 		this.quantity = quantity;
 		this.value = value;
 		this.change = change;
-		this.finalValue = final_value;
+		this.finalValue = finalValue;
+		this.date = date;
 	}
 
 	public Integer getId() {
@@ -57,6 +68,22 @@ public class SalesModel {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public int getIdCostumer() {
+		return idCostumer;
+	}
+
+	public void setIdCostumer(int idCostumer) {
+		this.idCostumer = idCostumer;
+	}
+
+	public int getIdEmployee() {
+		return idEmployee;
+	}
+
+	public void setIdEmployee(int idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
 	public int getIdProduct() {
@@ -67,35 +94,35 @@ public class SalesModel {
 		this.idProduct = idProduct;
 	}
 
-	public float getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(float value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public float getChange() {
+	public double getChange() {
 		return change;
 	}
 
-	public void setChange(float change) {
+	public void setChange(double change) {
 		this.change = change;
 	}
 
-	public float getFinal_value() {
+	public double getFinalValue() {
 		return finalValue;
 	}
 
-	public void setFinal_value(float finalValue) {
+	public void setFinalValue(double finalValue) {
 		this.finalValue = finalValue;
 	}
 

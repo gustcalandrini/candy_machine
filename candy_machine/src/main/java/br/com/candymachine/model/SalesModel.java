@@ -7,29 +7,38 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Table(name = "sales")
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class SalesModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_sales")
 	private Integer id;
-	
-	@Column(name="id_costumer")
-	private int idCostumer;
-	
-	@Column(name="id_employee")
-	private int idEmployee;
 
-	@Column(name = "id_product")
-	private int idProduct;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_costumer")
+	private CostumerModel costumer;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_employee")
+	private EmployeeModel employee;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_product")
+	private ProductModel product;
+	
 	@Column(name = "quantity")
 	private int quantity;
 
@@ -46,15 +55,15 @@ public class SalesModel {
 	private Date date;
 
 	public SalesModel() {
-	}	
+	}
 
-	public SalesModel(Integer id, int idCostumer, int idEmployee, int idProduct, int quantity, double value,
-			double change, double finalValue, Date date) {
+	public SalesModel(Integer id, CostumerModel costumer, EmployeeModel employee, ProductModel product, int quantity,
+			double value, double change, double finalValue, Date date) {
 		super();
 		this.id = id;
-		this.idCostumer = idCostumer;
-		this.idEmployee = idEmployee;
-		this.idProduct = idProduct;
+		this.costumer = costumer;
+		this.employee = employee;
+		this.product = product;
 		this.quantity = quantity;
 		this.value = value;
 		this.change = change;
@@ -69,29 +78,29 @@ public class SalesModel {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public int getIdCostumer() {
-		return idCostumer;
+
+	public CostumerModel getCostumer() {
+		return costumer;
 	}
 
-	public void setIdCostumer(int idCostumer) {
-		this.idCostumer = idCostumer;
+	public void setCostumer(CostumerModel costumer) {
+		this.costumer = costumer;
 	}
 
-	public int getIdEmployee() {
-		return idEmployee;
+	public EmployeeModel getEmployee() {
+		return employee;
 	}
 
-	public void setIdEmployee(int idEmployee) {
-		this.idEmployee = idEmployee;
+	public void setEmployee(EmployeeModel employee) {
+		this.employee = employee;
 	}
 
-	public int getIdProduct() {
-		return idProduct;
+	public ProductModel getProduct() {
+		return product;
 	}
 
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
+	public void setProduct(ProductModel product) {
+		this.product = product;
 	}
 
 	public double getValue() {
@@ -136,8 +145,9 @@ public class SalesModel {
 
 	@Override
 	public String toString() {
-		return "SalesModel [id=" + id + ", idProduct=" + idProduct + ", quantity=" + quantity + ", value=" + value
-				+ ", change=" + change + ", finalValue=" + finalValue + ", date=" + date + "]";
+		return "SalesModel [id=" + id + ", costumer=" + costumer + ", employee=" + employee + ", product=" + product
+				+ ", quantity=" + quantity + ", value=" + value + ", change=" + change + ", finalValue=" + finalValue
+				+ ", date=" + date + "]";
 	}
 
 }

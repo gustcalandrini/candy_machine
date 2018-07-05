@@ -12,22 +12,22 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  
-@Table(name="employee")
+@Table(name="costumer")
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class EmployeeModel {
+public class CostumerModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_employee")
+	@Column(name="id_costumer")
 	private Integer id;
  
 	@Column(name="name")
 	private String  name;
 
-	public EmployeeModel() {}
+	public CostumerModel() {}
 
-	public EmployeeModel(Integer id, String name) {
+	public CostumerModel(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}

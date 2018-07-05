@@ -12,26 +12,31 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  
-@Table(name="employee")
+@Table(name="products")
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class EmployeeModel {
+public class ProductModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_employee")
+	@Column(name="id_product")
 	private Integer id;
  
-	@Column(name="name")
-	private String  name;
+	@Column(name="description")
+	private String  description;
 
-	public EmployeeModel() {}
+	@Column(name="price")
+	private double price;
 
-	public EmployeeModel(Integer id, String name) {
+	public ProductModel() {}
+
+	public ProductModel(Integer id, String description, double price) {
+		super();
 		this.id = id;
-		this.name = name;
+		this.description = description;
+		this.price = price;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -40,12 +45,20 @@ public class EmployeeModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
  
 }

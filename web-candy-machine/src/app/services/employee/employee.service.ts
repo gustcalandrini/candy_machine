@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import {Employee} from '../services/employee';
-import {ConfigService} from './config.service';
+import {Employee} from './employee';
+import {ConfigService} from '../config.service';
 
 @Injectable({
   providedIn: 'root'

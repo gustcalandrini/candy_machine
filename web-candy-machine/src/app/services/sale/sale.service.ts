@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -7,10 +7,18 @@ import 'rxjs/add/operator/catch';
 
 import {ConfigService} from '../config.service';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': '*/*',
+    'Access-Control-Allow-Origin': '*',
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class SaleService {
 
   private baseUrlService: string;
 
@@ -18,30 +26,38 @@ export class EmployeeService {
               private configService: ConfigService) {
 
     /**SETANDO A URL DO SERVIÇO REST QUE VAI SER ACESSADO */
-    this.baseUrlService = configService.getUrlService() + '/employee/';
-
-    /*ADICIONANDO O JSON NO HEADER */
-    const requestOptions = {
-      params: new HttpParams()
-    };
-
-    requestOptions.params.set('Content-Type', 'application/json;charset=UTF-8');
-
-    this.http.get(this.baseUrlService, requestOptions);
+    this.baseUrlService = configService.getUrlService() + '/sales/';
   }
 
-  /**CONSULTA TODAS AS PESSOAS CADASTRADAS */
-  getEmployees() {
-    return this.http.get(this.baseUrlService).subscribe(res => {
-      console.log('RESPONSE: ', res);
-    });
+  /* CONSULTA TODAS AS VENDAS */
+  getSales() {
+    this.http.get(this.baseUrlService, httpOptions).subscribe(sale => {
+        console.log(sale);
+      },
+      err => {
+        console.log('Error occured: ', err);
+      });
   }
 
-  // /**ADICIONA UMA NOVA PESSOA */
-  // addPessoa(pessoa: Pessoa) {
-  //
-  //   return this.http.post(this.baseUrlService, JSON.stringify(pessoa), this.options).map(res => res.json());
-  // }
+  /* REALIZA VENDA */
+  buy() {
+    this.http.post(this.baseUrlService, {
+      'employee': 'Gustavo',
+      'costumer': 'Julia',
+      'product': 'KitKat',
+      'quantity': 1,
+      'value': 1.85,
+      'finalValue': 1.0
+    }, httpOptions).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log('Error occured: ', err);
+      }
+    );
+  }
+
   //
   // /**EXCLUI UMA PESSOA */
   // excluirPessoa(codigo: number) {

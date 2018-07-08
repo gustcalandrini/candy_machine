@@ -7,12 +7,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,22 +23,15 @@ public class SalesModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer sale_id;
-
-	private Integer cost_id;
-
-	private Integer emp_id;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "costumer_id")
-	private CostumerModel costumer;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_id")
-	private EmployeeModel employee;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id")
-	private ProductModel product;
+	
+	@Column(name = "costumer")
+	private String costumer;
+	
+	@Column(name = "employee")
+	private String employee;
+	
+	@Column(name = "product")
+	private String product;
 
 	@Column(name = "quantity")
 	private int quantity;
@@ -49,7 +39,7 @@ public class SalesModel {
 	@Column(name = "value")
 	private double value;
 
-	@Column(name = "`change`")
+	@Column(name = "`change`", nullable = true)
 	private double change;
 
 	@Column(name = "final_value")
@@ -60,13 +50,11 @@ public class SalesModel {
 
 	public SalesModel() {
 	}
-
-	public SalesModel(Integer sale_id, Integer costId, Integer empId, CostumerModel costumer, EmployeeModel employee,
-			ProductModel product, int quantity, double value, double change, double finalValue, Date date) {
+	
+	public SalesModel(Integer sale_id, String costumer, String employee, String product, int quantity, double value,
+			double change, double finalValue, Date date) {
 		super();
 		this.sale_id = sale_id;
-		this.cost_id = costId;
-		this.emp_id = empId;
 		this.costumer = costumer;
 		this.employee = employee;
 		this.product = product;
@@ -77,6 +65,14 @@ public class SalesModel {
 		this.date = date;
 	}
 
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
 	public Integer getSale_id() {
 		return sale_id;
 	}
@@ -85,60 +81,20 @@ public class SalesModel {
 		this.sale_id = sale_id;
 	}
 
-	public Integer getCostId() {
-		return cost_id;
-	}
-
-	public void setCostId(Integer costId) {
-		this.cost_id = costId;
-	}
-
-	public Integer getEmpId() {
-		return emp_id;
-	}
-
-	public void setEmpId(Integer empId) {
-		this.emp_id = empId;
-	}
-
-	public Integer getId() {
-		return sale_id;
-	}
-
-	public void setId(Integer id) {
-		this.sale_id = id;
-	}
-
-	public CostumerModel getCostumer() {
+	public String getCostumer() {
 		return costumer;
 	}
 
-	public void setCostumer(CostumerModel costumer) {
+	public void setCostumer(String costumer) {
 		this.costumer = costumer;
 	}
 
-	public EmployeeModel getEmployee() {
+	public String getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(EmployeeModel employee) {
+	public void setEmployee(String employee) {
 		this.employee = employee;
-	}
-
-	public ProductModel getProduct() {
-		return product;
-	}
-
-	public void setProduct(ProductModel product) {
-		this.product = product;
-	}
-
-	public double getValue() {
-		return value;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
 	}
 
 	public int getQuantity() {
@@ -147,6 +103,14 @@ public class SalesModel {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
 	}
 
 	public double getChange() {
@@ -175,9 +139,8 @@ public class SalesModel {
 
 	@Override
 	public String toString() {
-		return "SalesModel [sale_id=" + sale_id + ", costId=" + cost_id + ", employeeId=" + emp_id + ", costumer="
-				+ costumer + ", employee=" + employee + ", product=" + product + ", quantity=" + quantity + ", value="
-				+ value + ", change=" + change + ", finalValue=" + finalValue + ", date=" + date + "]";
+		return "SalesModel [sale_id=" + sale_id + ", costumer=" + costumer + ", employee=" + employee + ", product="
+				+ product + ", quantity=" + quantity + ", value=" + value + ", change=" + change + ", finalValue="
+				+ finalValue + ", date=" + date + "]";
 	}
-
 }

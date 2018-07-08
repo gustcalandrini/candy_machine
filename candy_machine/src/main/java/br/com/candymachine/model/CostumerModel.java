@@ -19,8 +19,8 @@ public class CostumerModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_costumer")
-	private Integer id;
+	@Column
+	private Integer costumer_id;
  
 	@Column(name="name")
 	private String  name;
@@ -28,16 +28,16 @@ public class CostumerModel {
 	public CostumerModel() {}
 
 	public CostumerModel(Integer id, String name) {
-		this.id = id;
+		this.costumer_id = id;
 		this.name = name;
 	}
 	
 	public Integer getId() {
-		return id;
+		return costumer_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.costumer_id = id;
 	}
 
 	public String getName() {

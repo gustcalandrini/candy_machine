@@ -19,8 +19,8 @@ public class EmployeeModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_employee")
-	private Integer id;
+	@Column
+	private Integer employee_id;
  
 	@Column(name="name")
 	private String  name;
@@ -28,16 +28,16 @@ public class EmployeeModel {
 	public EmployeeModel() {}
 
 	public EmployeeModel(Integer id, String name) {
-		this.id = id;
+		this.employee_id = id;
 		this.name = name;
 	}
 	
 	public Integer getId() {
-		return id;
+		return employee_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.employee_id = id;
 	}
 
 	public String getName() {

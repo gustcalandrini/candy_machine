@@ -1,7 +1,6 @@
 package br.com.candymachine.service;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.candymachine.model.ResponseModel;
 import br.com.candymachine.model.SalesModel;
+import br.com.candymachine.repository.CostumerRepository;
+import br.com.candymachine.repository.EmployeeRepository;
 import br.com.candymachine.repository.SalesRepository;
 
 @Service
@@ -25,6 +27,12 @@ public class SalesService {
 
 	@Autowired
 	private SalesRepository salesRepository;
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private CostumerRepository costumerRepository;
 
 	/**
 	 * SALVAR UM NOVO REGISTRO
@@ -34,22 +42,32 @@ public class SalesService {
 	 */
 	@RequestMapping(value = "/sales", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseModel insert(@RequestBody SalesModel sale) {
-		
-		String message = calculateChange(sale.getFinalValue(), sale.getValue());
-						
-		sale.setDate(new Date());
-		
-		sale.setChange(Double.parseDouble(message.substring(10, 14).replace(',','.')));
-		
-		try {
-			this.salesRepository.save(sale);
-			return new ResponseModel(1, message);
 
-		} catch (Exception e) {
-			return new ResponseModel(0, e.getMessage());
-		}	
+		System.out.println("SALE: " + sale.toString());
+		return new ResponseModel(1, "FODA-SE");
+		
+		
+		
+//		sale.setCostumer(costumerRepository.findById(sale.getCostId()));
+//		sale.setEmployee(employeeRepository.findById(sale.getEmpId()));
+//		
+//		String message = calculateChange(sale.getFinalValue(), sale.getValue());
+//
+//		sale.setDate(new Date());
+//
+//		sale.setChange(Double.parseDouble(message.substring(10, 14).replace(',', '.')));
+//		
+//		System.out.println("SALE: " + sale);
+//
+//		try {
+//			this.salesRepository.save(sale);
+//			return new ResponseModel(1, message);
+//
+//		} catch (Exception e) {
+//			return new ResponseModel(0, e.getMessage());
+//		}
 	}
-	
+
 	/* Método utilizado para calcular o troco */
 	private static String calculateChange(double totalAmount, double paidAmount) {
 		DecimalFormat formatador = new DecimalFormat("###,##0.00");
@@ -94,7 +112,6 @@ public class SalesService {
 		}
 	}
 
-
 	/**
 	 * ATUALIZAR O REGISTRO DE UMA PESSOA
 	 * 
@@ -115,7 +132,7 @@ public class SalesService {
 			return new ResponseModel(0, e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * CONSULTAR TODAS AS PESSOAS
 	 * 

@@ -24,21 +24,25 @@ public class SalesModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sales")
-	private Integer id;
+	@Column
+	private Integer sale_id;
+
+	private Integer cost_id;
+
+	private Integer emp_id;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_costumer")
+	@JoinColumn(name = "costumer_id")
 	private CostumerModel costumer;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_employee")
+	@JoinColumn(name = "employee_id")
 	private EmployeeModel employee;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_product")
+	@JoinColumn(name = "product_id")
 	private ProductModel product;
-	
+
 	@Column(name = "quantity")
 	private int quantity;
 
@@ -57,10 +61,12 @@ public class SalesModel {
 	public SalesModel() {
 	}
 
-	public SalesModel(Integer id, CostumerModel costumer, EmployeeModel employee, ProductModel product, int quantity,
-			double value, double change, double finalValue, Date date) {
+	public SalesModel(Integer sale_id, Integer costId, Integer empId, CostumerModel costumer, EmployeeModel employee,
+			ProductModel product, int quantity, double value, double change, double finalValue, Date date) {
 		super();
-		this.id = id;
+		this.sale_id = sale_id;
+		this.cost_id = costId;
+		this.emp_id = empId;
 		this.costumer = costumer;
 		this.employee = employee;
 		this.product = product;
@@ -71,12 +77,36 @@ public class SalesModel {
 		this.date = date;
 	}
 
+	public Integer getSale_id() {
+		return sale_id;
+	}
+
+	public void setSale_id(Integer sale_id) {
+		this.sale_id = sale_id;
+	}
+
+	public Integer getCostId() {
+		return cost_id;
+	}
+
+	public void setCostId(Integer costId) {
+		this.cost_id = costId;
+	}
+
+	public Integer getEmpId() {
+		return emp_id;
+	}
+
+	public void setEmpId(Integer empId) {
+		this.emp_id = empId;
+	}
+
 	public Integer getId() {
-		return id;
+		return sale_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.sale_id = id;
 	}
 
 	public CostumerModel getCostumer() {
@@ -145,9 +175,9 @@ public class SalesModel {
 
 	@Override
 	public String toString() {
-		return "SalesModel [id=" + id + ", costumer=" + costumer + ", employee=" + employee + ", product=" + product
-				+ ", quantity=" + quantity + ", value=" + value + ", change=" + change + ", finalValue=" + finalValue
-				+ ", date=" + date + "]";
+		return "SalesModel [sale_id=" + sale_id + ", costId=" + cost_id + ", employeeId=" + emp_id + ", costumer="
+				+ costumer + ", employee=" + employee + ", product=" + product + ", quantity=" + quantity + ", value="
+				+ value + ", change=" + change + ", finalValue=" + finalValue + ", date=" + date + "]";
 	}
 
 }

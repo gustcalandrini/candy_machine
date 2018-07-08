@@ -27,12 +27,7 @@ export class SaleService {
 
   /* CONSULTA TODAS AS VENDAS */
   getSales() {
-    this.http.get(this.baseUrlService, httpOptions).subscribe(sale => {
-        console.log(sale);
-      },
-      err => {
-        console.log('Error occured: ', err);
-      });
+    return this.http.get(this.baseUrlService, httpOptions);
   }
 
   /* REALIZA VENDA */
@@ -46,22 +41,4 @@ export class SaleService {
       'finalValue': totalAmount
     }, httpOptions);
   }
-
-  //
-  // /**EXCLUI UMA PESSOA */
-  // excluirPessoa(codigo: number) {
-  //
-  //   return this.http.delete(this.baseUrlService + codigo).map(res => res.json());
-  // }
-  //
-  // /**CONSULTA UMA PESSOA PELO CÓDIGO */
-  // getPessoa(codigo: number) {
-  //
-  //   return this.http.get(this.baseUrlService + codigo).map(res => res.json());
-  // }
-  //
-  // /**ATUALIZA INFORMAÇÕES DA PESSOA */
-  // atualizarPessoa(pessoa: Pessoa) {
-  //   return this.http.put(this.baseUrlService, JSON.stringify(pessoa), this.options).map(res => res.json());
-  // }
 }

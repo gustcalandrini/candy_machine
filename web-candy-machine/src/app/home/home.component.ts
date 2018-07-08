@@ -10,6 +10,7 @@ import {SaleService} from '../services/sale/sale.service';
 export class HomeComponent implements OnInit {
 
   productList = [];
+  money = 1;
 
   constructor(private productService: ProductService, private saleService: SaleService) {
   }
@@ -64,8 +65,13 @@ export class HomeComponent implements OnInit {
     return checkedQtt;
   }
 
+  onKey(event) {
+    this.money = event.target.value;
+    console.log(this.money);
+  }
+
   confirm() {
-    this.saleService.buy(this.concatProducts(), this.checkedQuantity(), 5.0, this.calcTotal()).subscribe(
+    this.saleService.buy(this.concatProducts(), this.checkedQuantity(), this.money, this.calcTotal()).subscribe(
       res => {
         console.log(res);
       },

@@ -1,19 +1,29 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-<div class="container">
-  <h2>Checkboxes</h2>
-  <form role="form">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let product of productList">
+<div class="container-fluid">
+  <h2>Candy Machine</h2>
+  <div class="row">
+    <form role="form">
+      <div class="col-sm-8" *ngFor="let product of productList">
         <fieldset>
           <div class="checkbox checkbox-primary" (click)="check(product.id)">
             <input id="product.id" type="checkbox" value="{{product.id}}" [checked]="product.checked">
             <label>
-              {{product.description}}
+              {{product.description}} R${{product.price.toFixed(2)}}
             </label>
           </div>
         </fieldset>
       </div>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <label for="example-number-input" class="col-form-label">Inserir valor</label>
+      <input class="form-control" (change)="onKey($event)" type="number" value="1" min="1" max="5" id="example-number-input">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
       <button type="button" class="btn btn-primary" (click)="confirm()">Comprar</button>
     </div>
-  </form>
+  </div>
 </div>

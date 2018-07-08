@@ -1,35 +1,56 @@
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-<div class="container-fluid">
-  <h2>Candy Machine</h2>
-  <div class="row">
-    <form role="form">
-      <div class="col-sm-8" *ngFor="let product of productList">
-        <fieldset>
-          <div class="checkbox checkbox-primary" (click)="check(product.id)">
-            <input id="product.id" type="checkbox" value="{{product.id}}" [checked]="product.checked">
-            <label>
-              {{product.description}} R${{product.price.toFixed(2)}}
-            </label>
+<body style=" background-color: #D2834A">
+
+
+<div class="container">
+  <h1
+    style="text-align: center; margin-top: 10%; color: #FFFFFF; font-size: 6vh; font-family: 'Master Of Break'; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);">
+    Candy Machine</h1>
+
+  <div style="display: flex; justify-content: center; margin-top: 5%;">
+
+    <div class="panel panel-default" style="width: 600px">
+      <div class="panel-body">
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-default" *ngFor="let product of productList">
+                  <div class="panel-body" style="display: flex; justify-content: space-between; align-items: center">
+                    <div class="checkbox checkbox-primary" (click)="check(product.id)">
+                        <input id="product.id" type="radio" value="{{product.id}}" [checked]="product.checked">
+                    </div>
+                    <img src="https://www.w3schools.com/bootstrap/cinqueterre.jpg" class="img-circle" width="50"
+                         height="50">
+                    <div>
+                      <p>{{product.description}}</p>
+                      <p>R$ {{product.price.toFixed(2)}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </fieldset>
+
+          <div class="col-md-6" style="display: flex; flex-direction: column; align-content: space-between; ">
+            <div class="form-group">
+              <label class="text-primary" for="number-input">Buyer coins</label>
+              <input class="form-control" (change)="onKey($event)" type="number" value="1" min="1" max="5"
+                     id="number-input"
+                     style="border: 0; box-shadow: inset 0 0 0; border-bottom: 2px solid #428BCA; border-radius: 0">
+            </div>
+            <h3 class="text-primary" style="margin-top: 60px">{{message?.message}}</h3>
+            <button type="button" (click)="confirm()" class="btn btn-primary btn-block btn-lg" style="margin-top: 60px">
+              <i class="fa fa-start"></i>
+              CLICK TO BUY
+              <i class="fa fa-start"></i>
+            </button>
+          </div>
+
+        </div>
       </div>
-    </form>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <label for="example-number-input" class="col-form-label">{{message?.message}}</label>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <label for="example-number-input" class="col-form-label">Inserir valor</label>
-      <input class="form-control" (change)="onKey($event)" type="number" value="1" min="1" max="5"
-             id="example-number-input">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <button type="button" class="btn btn-primary" (click)="confirm()">Comprar</button>
-    </div>
+
   </div>
 </div>
+</body>

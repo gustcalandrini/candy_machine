@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
 
   productList = [];
   money = 1;
+  message;
 
   constructor(private productService: ProductService, private saleService: SaleService) {
   }
@@ -73,7 +74,7 @@ export class HomeComponent implements OnInit {
   confirm() {
     this.saleService.buy(this.concatProducts(), this.checkedQuantity(), this.money, this.calcTotal()).subscribe(
       res => {
-        console.log(res);
+        this.message = res;
       },
       err => {
         console.log('Error occured: ', err);

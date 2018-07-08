@@ -70,7 +70,7 @@ public class SalesService {
 			int i, value, ct;
 
 			change = paidAmount - totalAmount;
-			result = "Troco = R$" + formatador.format(change) + ". ";
+			result = "Troco = R$" + formatador.format(change) + ". \n";
 
 			// definindo as notas do troco (parte inteira)
 			value = (int) change;
@@ -78,7 +78,7 @@ public class SalesService {
 			while (value != 0) {
 				ct = value / noteBills[i]; // calculando a quantidade de notas
 				if (ct != 0) {
-					result = result + (ct + " nota(s) de R$" + noteBills[i] + ", ");
+					result = result + (ct + " nota(s) de R$" + noteBills[i] + ", \n");
 					value = value % noteBills[i]; // sobra
 				}
 				i = i + 1; // próxima nota
@@ -90,7 +90,7 @@ public class SalesService {
 			while (value != 0) {
 				ct = value / cents[i]; // Calculando a qtde de moedas
 				if (ct != 0) {
-					result = result + (ct + " moeda(s) de " + cents[i] + " centavo(s), ");
+					result = result + (ct + " moeda(s) de " + cents[i] + " centavo(s), \n");
 					value = value % cents[i]; // Sobra
 				}
 				i = i + 1; // Próximo centavo

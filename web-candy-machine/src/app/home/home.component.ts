@@ -25,7 +25,26 @@ export class HomeComponent implements OnInit {
       let tempProductList;
       tempProductList = products;
       tempProductList.forEach((e) => {
-        this.productList.push({...e, checked: false});
+        if (e.description.toLowerCase() === 'kitkat') {
+          this.productList.push({
+            ...e,
+            checked: false,
+            imgUrl: 'https://superprix.vteximg.com.br/arquivos/ids/175084-600-600/522832.png?v=636281269616900000'
+          });
+        } else if (e.description.toLowerCase() === 'suflair') {
+          this.productList.push({
+            ...e,
+            checked: false,
+            imgUrl: 'https://www.nestle.com.br/images/default-source/embalagens-produto/' +
+            'suflair-chocolate-ao-leite/suflair-chocolate-ao-leite-50g.png?sfvrsn=a5fbe76f_6'
+          });
+        } else {
+          this.productList.push({
+            ...e,
+            checked: false,
+            imgUrl: 'https://www.lacta.com.br/application/uploads/products/sku/f206ddc02c006cd85568fe433df1397b719ac3ef_2.png'
+          });
+        }
       });
     });
   }

@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-
 import {ConfigService} from '../config.service';
 
 const httpOptions = {
@@ -40,22 +36,15 @@ export class SaleService {
   }
 
   /* REALIZA VENDA */
-  buy() {
-    this.http.post(this.baseUrlService, {
+  buy(productString, quantity, paidAmount, totalAmount) {
+    return this.http.post(this.baseUrlService, {
       'employee': 'Gustavo',
       'costumer': 'Julia',
-      'product': 'KitKat',
-      'quantity': 1,
-      'value': 1.85,
-      'finalValue': 1.0
-    }, httpOptions).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log('Error occured: ', err);
-      }
-    );
+      'product': productString,
+      'quantity': quantity,
+      'value': paidAmount,
+      'finalValue': totalAmount
+    }, httpOptions);
   }
 
   //

@@ -5,14 +5,15 @@
     <div class="row">
       <div class="col-md-4" *ngFor="let product of productList">
         <fieldset>
-          <div class="checkbox checkbox-primary">
-            <input type="checkbox" value="{{product.description}}">
+          <div class="checkbox checkbox-primary" (click)="check(product.id)">
+            <input id="product.id" type="checkbox" value="{{product.id}}" [checked]="product.checked">
             <label>
               {{product.description}}
             </label>
           </div>
         </fieldset>
       </div>
+      <button type="button" class="btn btn-primary" (click)="confirm()">Comprar</button>
     </div>
   </form>
 </div>

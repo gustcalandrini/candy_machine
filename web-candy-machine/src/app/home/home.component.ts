@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../services/product/product.service';
+import {SaleService} from '../services/sale/sale.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   productList = [];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private saleService: SaleService) {
   }
 
   ngOnInit() {
@@ -22,10 +23,55 @@ export class HomeComponent implements OnInit {
       let tempProductList;
       tempProductList = products;
       tempProductList.forEach((e) => {
-        this.productList.push({...e, selected: false});
+        this.productList.push({...e, checked: false});
       });
-      console.log(this.productList);
     });
   }
 
+  check(productId) {
+    let tempArray;
+    tempArray = [];
+    this.productList.filter((e) => {
+      e.id === productId ? e.checked = !e.checked : e.checked = e.checked;
+      tempArray.push(e);
+    });
+    this.productList = tempArray;
+  }
+
+  calcTotal() {
+    let sum = 0;
+    this.productList.filter((e) => {
+      if (e.checked) {
+        sum = sum + e.price;
+      }
+    });
+    return sum;
+  }
+
+  concatProducts() {
+    let productString = '';
+    this.productList.forEach((e, i) => {
+      if (e.checked) {
+        i === 0 ? productString = e.description : productString = productString + ', ' + e.description;
+      }
+    });
+    return productString;
+  }
+
+  checkedQuantity() {
+    let checkedQtt = 0;
+    this.productList.filter((e) => e.checked ? checkedQtt += 1 : 0);
+    return checkedQtt;
+  }
+
+  confirm() {
+    this.saleService.buy(this.concatProducts(), this.checkedQuantity(), 5.0, this.calcTotal()).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log('Error occured: ', err);
+      }
+    );
+  }
 }

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-
 import {ConfigService} from '../config.service';
 
 const httpOptions = {
@@ -14,7 +13,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class SaleService {
+export class CostumerService {
 
   private baseUrlService: string;
 
@@ -22,23 +21,17 @@ export class SaleService {
               private configService: ConfigService) {
 
     /**SETANDO A URL DO SERVIÇO REST QUE VAI SER ACESSADO */
-    this.baseUrlService = configService.getUrlService() + '/sales/';
+    this.baseUrlService = configService.getUrlService() + '/costumer/';
   }
 
-  /* CONSULTA TODAS AS VENDAS */
-  getSales() {
-    return this.http.get(this.baseUrlService, httpOptions);
-  }
-
-  /* REALIZA VENDA */
-  buy(costumerName, productString, quantity, paidAmount, totalAmount) {
+  saveCostumer(name) {
     return this.http.post(this.baseUrlService, {
-      'employee': 'Gustavo',
-      'costumer': costumerName,
-      'product': productString,
-      'quantity': quantity,
-      'value': paidAmount,
-      'finalValue': totalAmount
+      'name': name
     }, httpOptions);
+  }
+
+  /* CONSULTA TODOS OS PRODUTOS */
+  getCostumers() {
+    return this.http.get(this.baseUrlService, httpOptions);
   }
 }

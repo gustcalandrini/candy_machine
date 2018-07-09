@@ -1,29 +1,31 @@
-<body style=" background-color: #D2834A">
-
-
-<div class="container">
+<div class="container-fluid" style="background-color: #00ffbe; height: 100%;">
   <h1
-    style="text-align: center; margin-top: 10%; color: #FFFFFF; font-size: 6vh; font-family: 'Master Of Break'; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);">
-    Candy Machine</h1>
+    style="text-align: center; margin-top: 60px; color: #FFFFFF; font-size: 6vh; font-family: 'Master Of Break'; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);">
+    Máquina de &nbsp; Doces</h1>
 
-  <div style="display: flex; justify-content: center; margin-top: 5%;">
+  <div style="display: flex; justify-content: center; margin-top: 40px;">
 
     <div class="panel panel-default" style="width: 600px">
       <div class="panel-body">
         <div class="row">
-
-          <div class="col-md-6">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="name-input">Nome do comprador:</label>
+              <input class="form-control" (change)="onNameChange($event)" type="text" [value]="name" id="name-input"/>
+            </div>
+          </div>
+          <div class="col-md-12">
             <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default" *ngFor="let product of productList">
-                  <div class="panel-body" style="display: flex; justify-content: space-between; align-items: center">
+              <div class="col-md-4" *ngFor="let product of productList">
+                <div class="panel panel-default" style="min-height: 110px">
+                  <div class="panel-body">
                     <div class="checkbox checkbox-primary" (click)="check(product.id)">
-                        <input id="product.id" type="radio" value="{{product.id}}" [checked]="product.checked">
+                      <input id="product.id" type="radio" value="{{product.id}}" [checked]="product.checked"
+                             style="margin-right: 20px">
+                      <img src="{{product.imgUrl}}" class="img-circle" width="50" height="50">
                     </div>
-                    <img src="{{product.imgUrl}}" class="img-circle" width="50"
-                         height="50">
                     <div>
-                      <p>{{product.description}}</p>
+                      <p><strong>{{product.description}}</strong></p>
                       <p>R$ {{product.price.toFixed(2)}}</p>
                     </div>
                   </div>
@@ -32,25 +34,29 @@
             </div>
           </div>
 
-          <div class="col-md-6" style="display: flex; flex-direction: column; align-content: space-between; ">
+          <div class="col-md-6">
             <div class="form-group">
-              <label class="text-primary" for="number-input">Insert Coins</label>
-              <input class="form-control" (change)="onKey($event)" type="number" value="1" min="1" max="5"
-                     id="number-input"
-                     style="border: 0; box-shadow: inset 0 0 0; border-bottom: 2px solid #428BCA; border-radius: 0">
+              <label class="text-primary" for="number-input">Moedas</label>
+              <input class="form-control" (change)="onValue($event)" type="number" value="1" min="1" max="5"
+                     id="number-input">
             </div>
-            <h3 class="text-primary" style="margin-top: 60px">{{message?.message}}</h3>
-            <button type="button" (click)="confirm()" class="btn btn-primary btn-block btn-lg" style="margin-top: 60px">
+          </div>
+
+          <div class="col-md-6">
+            <button type="button" [disabled]="checkedQuantity() === 0" (click)="confirm()"
+                    class="btn btn-primary btn-block" style="margin-top: 24px">
               <i class="fa fa-start"></i>
-              CLICK TO BUY
+              Comprar
               <i class="fa fa-start"></i>
             </button>
           </div>
-
+          <div class="col-md-12">
+            <div class="well" *ngIf="message">
+              <h5 class="text-primary">{{message?.message}}</h5>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
-</body>

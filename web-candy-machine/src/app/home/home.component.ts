@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../services/product/product.service';
 import {SaleService} from '../services/sale/sale.service';
+import {CostumerService} from '../services/costumer/costumer.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,18 @@ import {SaleService} from '../services/sale/sale.service';
 export class HomeComponent implements OnInit {
 
   productList = [];
+  costumerList = [];
   money = 1;
+  name = '';
   message;
 
-  constructor(private productService: ProductService, private saleService: SaleService) {
+  constructor(private productService: ProductService, private saleService: SaleService,
+              private costumerService: CostumerService) {
   }
 
   ngOnInit() {
     this.getProducts();
+    this.getCostumers();
   }
 
   getProducts() {
@@ -46,6 +51,14 @@ export class HomeComponent implements OnInit {
           });
         }
       });
+    });
+  }
+
+  getCostumers() {
+    this.costumerService.getCostumers().subscribe(costumers => {
+      let tempProductList;
+      tempProductList = costumers;
+      this.costumerList = tempProductList;
     });
   }
 
@@ -85,19 +98,26 @@ export class HomeComponent implements OnInit {
     return checkedQtt;
   }
 
-  onKey(event) {
+  onValue(event) {
     this.money = event.target.value;
     console.log(this.money);
   }
 
+  onNameChange(event) {
+    this.name = event.target.value;
+  }
+
   confirm() {
-    this.saleService.buy(this.concatProducts(), this.checkedQuantity(), this.money, this.calcTotal()).subscribe(
-      res => {
-        this.message = res;
-      },
-      err => {
-        console.log('Error occured: ', err);
-      }
-    );
+    if (this.checkedQuantity() !== 0) {
+      this.saleService.buy(this.name, this.concatProducts(), this.checkedQuantity(), this.money, this.calcTotal()).subscribe(
+        res => {
+          this.message = res;
+          this.name = '';
+        },
+        err => {
+          console.log('Error occured: ', err);
+        }
+      );
+    }
   }
 }

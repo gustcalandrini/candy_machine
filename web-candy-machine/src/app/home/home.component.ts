@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   money = 1;
   name = '';
   message;
+  selectedProduct;
 
   constructor(private productService: ProductService, private saleService: SaleService,
               private costumerService: CostumerService) {
@@ -33,20 +34,17 @@ export class HomeComponent implements OnInit {
         if (e.description.toLowerCase() === 'kitkat') {
           this.productList.push({
             ...e,
-            checked: false,
             imgUrl: 'https://superprix.vteximg.com.br/arquivos/ids/175084-600-600/522832.png?v=636281269616900000'
           });
         } else if (e.description.toLowerCase() === 'suflair') {
           this.productList.push({
             ...e,
-            checked: false,
             imgUrl: 'https://www.nestle.com.br/images/default-source/embalagens-produto/' +
             'suflair-chocolate-ao-leite/suflair-chocolate-ao-leite-50g.png?sfvrsn=a5fbe76f_6'
           });
         } else {
           this.productList.push({
             ...e,
-            checked: false,
             imgUrl: 'https://www.lacta.com.br/application/uploads/products/sku/f206ddc02c006cd85568fe433df1397b719ac3ef_2.png'
           });
         }
@@ -62,57 +60,37 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  check(productId) {
-    let tempArray;
-    tempArray = [];
-    this.productList.filter((e) => {
-      e.id === productId ? e.checked = !e.checked : e.checked = e.checked;
-      tempArray.push(e);
-    });
-    this.productList = tempArray;
-  }
-
-  calcTotal() {
-    let sum = 0;
-    this.productList.filter((e) => {
-      if (e.checked) {
-        sum = sum + e.price;
-      }
-    });
-    return sum;
-  }
-
-  concatProducts() {
-    let productString = '';
-    this.productList.forEach((e, i) => {
-      if (e.checked) {
-        i === 0 ? productString = e.description : productString = productString + ', ' + e.description;
-      }
-    });
-    return productString;
+  check(product) {
+    this.selectedProduct = Object.assign({}, this.selectedProduct, product);
   }
 
   checkedQuantity() {
-    let checkedQtt = 0;
-    this.productList.filter((e) => e.checked ? checkedQtt += 1 : 0);
-    return checkedQtt;
+    return this.selectedProduct !== undefined ? 1 : 0;
   }
 
   onValue(event) {
     this.money = event.target.value;
-    console.log(this.money);
   }
 
   onNameChange(event) {
     this.name = event.target.value;
   }
 
+  clear() {
+    this.name = '';
+    this.money = 1;
+    this.selectedProduct = undefined;
+    this.productList = [];
+    this.getProducts();
+  }
+
   confirm() {
-    if (this.checkedQuantity() !== 0) {
-      this.saleService.buy(this.name, this.concatProducts(), this.checkedQuantity(), this.money, this.calcTotal()).subscribe(
+    if (this.checkedQuantity()) {
+      this.saleService.buy(this.name, this.selectedProduct.description, this.checkedQuantity(),
+        this.money, this.selectedProduct.price).subscribe(
         res => {
           this.message = res;
-          this.name = '';
+          this.clear();
         },
         err => {
           console.log('Error occured: ', err);

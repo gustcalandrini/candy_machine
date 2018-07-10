@@ -78,7 +78,7 @@ public class SalesService {
 			while (value != 0) {
 				ct = value / noteBills[i]; // calculando a quantidade de notas
 				if (ct != 0) {
-					result = result + (ct + " nota(s) de R$" + noteBills[i] + ", \n");
+					result = result + (ct + " nota(s) de R$" + formatador.format(noteBills[i]) + ", ");
 					value = value % noteBills[i]; // sobra
 				}
 				i = i + 1; // próxima nota
@@ -90,13 +90,12 @@ public class SalesService {
 			while (value != 0) {
 				ct = value / cents[i]; // Calculando a qtde de moedas
 				if (ct != 0) {
-					result = result + (ct + " moeda(s) de " + cents[i] + " centavo(s), \n");
+					result = result + (ct + " moeda(s) de " + cents[i] + " centavo(s), ");
 					value = value % cents[i]; // Sobra
 				}
 				i = i + 1; // Próximo centavo
 			}
-
-			return (result);
+			return (result.substring(0, result.length() - 2) + ".");
 		}
 	}
 
@@ -128,7 +127,6 @@ public class SalesService {
 	 */
 	@RequestMapping(value = "/sales", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<SalesModel> select() {
-
 		return this.salesRepository.findAll();
 	}
 

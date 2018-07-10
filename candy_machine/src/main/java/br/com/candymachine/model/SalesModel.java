@@ -23,13 +23,13 @@ public class SalesModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer sale_id;
-	
+
 	@Column(name = "costumer")
 	private String costumer;
-	
+
 	@Column(name = "employee")
 	private String employee;
-	
+
 	@Column(name = "product")
 	private String product;
 
@@ -50,10 +50,9 @@ public class SalesModel {
 
 	public SalesModel() {
 	}
-	
+
 	public SalesModel(Integer sale_id, String costumer, String employee, String product, int quantity, double value,
 			double change, double finalValue, Date date) {
-		super();
 		this.sale_id = sale_id;
 		this.costumer = costumer;
 		this.employee = employee;
@@ -63,14 +62,6 @@ public class SalesModel {
 		this.change = change;
 		this.finalValue = finalValue;
 		this.date = date;
-	}
-
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
 	}
 
 	public Integer getSale_id() {
@@ -95,6 +86,14 @@ public class SalesModel {
 
 	public void setEmployee(String employee) {
 		this.employee = employee;
+	}
+
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
 	}
 
 	public int getQuantity() {
@@ -143,4 +142,5 @@ public class SalesModel {
 				+ product + ", quantity=" + quantity + ", value=" + value + ", change=" + change + ", finalValue="
 				+ finalValue + ", date=" + date + "]";
 	}
+	
 }

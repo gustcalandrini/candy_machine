@@ -13,7 +13,7 @@ public interface SalesRepository extends Repository<SalesModel, Integer> {
 
 	void delete(SalesModel sale);
 
-	@Query(value = "SELECT * FROM sales WHERE date BETWEEN CURDATE() - INTERVAL 5 DAY AND CURDATE()", nativeQuery = true)
+	@Query(value = "SELECT * FROM sales WHERE date BETWEEN CURDATE() - INTERVAL 5 DAY AND CURDATE() + 1;", nativeQuery = true)
 	List<SalesModel> findAll();
 
 	SalesModel findById(Integer id);
